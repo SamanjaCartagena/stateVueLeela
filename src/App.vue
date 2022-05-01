@@ -20,7 +20,7 @@
 <script>
 import CounterPage from './components/CounterPage.vue'
 import TodosList from './components/TodosList.vue'
-import {mapState, mapGetters, mapActions} from 'vuex';
+import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
 export default {
   name: 'App',
   computed:{
