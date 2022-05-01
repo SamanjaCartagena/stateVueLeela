@@ -3,7 +3,7 @@
      <div>{{count}}</div>
 
   <div>
-      <button @click.prevent="onIncrement()">Increment</button>
+      <button @click.prevent="onIncrement()">Increment1</button>
   </div>
   </div>
 </template>
@@ -22,9 +22,10 @@ export default {
    },
    methods:{
        onIncrement(){
-           this.$store.dispatch({
-               type:'increment',value:4
-               })
+           this.$store.dispatch('actionA').then((response) =>{
+               console.log("calling then success")
+               console.log(response)
+           })
        }
    }
 }
