@@ -31,6 +31,15 @@ const store = createStore({
     mutations:{
         increment(state, payload){
             state.count = state.count + payload.value;
+        },
+    },
+    actions:{
+        increment(context, payload){
+            console.log(context);
+            setTimeout(() => {
+              context.commit('increment', payload);
+
+            }, 2000)
         }
     }
 })
