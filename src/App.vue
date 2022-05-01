@@ -2,7 +2,11 @@
   <div>
     <counter-page></counter-page>
   <div>
-    {{$store.state.count}}
+    <h3>App Vue Counter</h3>
+    {{count}}
+  </div>
+  <div>
+    <button @click.prevent="onIncrement">Increment</button>
   </div>
   </div>
 </template>
@@ -11,9 +15,20 @@
 import CounterPage from './components/CounterPage.vue'
 export default {
   name: 'App',
+  computed:{
+   count(){
+     return this.$store.state.count
+   }
+  },
   components: {
     CounterPage
 
+  },
+  methods:{
+    onIncrement(){
+      this.$store.commit(
+        {type:'increment',value:3});
+    }
   }
 }
 </script>
