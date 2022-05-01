@@ -1,20 +1,57 @@
 import { createApp } from 'vue'
 import {createStore} from 'vuex'
 import App from './App.vue'
-
-const store = createStore({
+const counterModule ={
     state(){
-        return{
-         count:2,
-         todos:[
+       return {
+           count:2,
+       }
+
+    },
+    mutations:{
+        increment(state, payload){
+            state.count = state.count + payload.value;
+        },
+    },
+    getters:{},
+    actions:{
+          increment(context, payload){
+            console.log(context);
+            setTimeout(() => {
+              context.commit('increment', payload);
+
+            }, 2000)
+
+    },
+    },
+      actionA(context){
+            return new Promise((resolve)=>{
+                setTimeout(()=>{
+                    context.commit('increment',{value:1});
+                    resolve('Leela Web Dev');
+                },2000)
+            })
+        },
+           actionB(context){
+            context.dispatch('actionA').then(response =>{
+                console.log(response);
+                console.log("calling success from actionB")
+            })
+        }
+};
+const todosModule ={
+   state(){
+       return {
+  todos:[
              {id:1, text:'wake up early', done:true},
              {id:2, text:'do breakfast', done : true},
              {id:3, text: 'go to school', done: false},
              {id:4, text:'sleep early', done:false}
          ]
-        }
-    }, 
-    getters:{
+       }
+   },
+   mutations:{},
+   getters:{
         getTodoById:state => id =>{
             return state.todos.find(todo => todo.id === id)
         
@@ -27,35 +64,30 @@ const store = createStore({
         doneTodosListCount(state, getters){
            return getters.doneTodos.length;
         },
-    },
-    mutations:{
-        increment(state, payload){
-            state.count = state.count + payload.value;
-        },
-    },
-    actions:{
-        increment(context, payload){
-            console.log(context);
-            setTimeout(() => {
-              context.commit('increment', payload);
+   },
+   actions:{},
 
-            }, 2000)
-        },
-        actionA(context){
-            return new Promise((resolve)=>{
-                setTimeout(()=>{
-                    context.commit('increment',{value:1});
-                    resolve('Leela Web Dev');
-                },2000)
-            })
-        },
-        actionB(context){
-            context.dispatch('actionA').then(response =>{
-                console.log(response);
-                console.log("calling success from actionB")
-            })
+};
+
+const store = createStore({
+    modules:{
+        counter:counterModule,
+        todos:todosModule
+    },
+
+    state(){
+        return{
+         
+        
         }
-    }
+    }, 
+    getters:{},
+   mutaions:{},
+   actions:{},
+    
+      
+     
+    
 })
 
 const app=createApp(App);
