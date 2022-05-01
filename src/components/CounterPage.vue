@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import {mapState, mapActions} from 'vuex'
 export default {
    data(){
        return{
@@ -16,17 +17,17 @@ export default {
 }
    },
    computed:{
-     count(){
-         return this.$store.state.count;
-     }
+       ...mapState({
+          count:state => state.count
+       }),
+     
    },
    methods:{
-       onIncrement(){
-           this.$store.dispatch('actionA').then((response) =>{
-               console.log("calling then success")
-               console.log(response)
-           })
-       }
+       ...mapActions({
+          onIncrement:'actionB'
+       }),
+      
+       
    }
 }
 </script>

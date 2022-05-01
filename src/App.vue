@@ -6,7 +6,7 @@
     {{count}}
   </div>
   <div>
-    <button @click.prevent="onIncrement">Increment</button>
+    <button @click.prevent="inc({value:2})">Increment</button>
   </div>
   <div>
     <todos-list></todos-list>
@@ -20,15 +20,17 @@
 <script>
 import CounterPage from './components/CounterPage.vue'
 import TodosList from './components/TodosList.vue'
+import {mapState, mapGetters, mapActions} from 'vuex';
 export default {
   name: 'App',
   computed:{
-   count(){
-     return this.$store.state.count
-   },
-   doneListCount(){
-      return this.$store.getters.doneTodosListCount;
-    }
+    ...mapState({
+          count:state => state.count,
+     }),
+   ...mapGetters({
+       doneListCount:'doneTodosListCount'
+   }),
+   
   },
   components: {
     CounterPage,
@@ -37,13 +39,13 @@ export default {
   },
  
   methods:{
-    onIncrement(){
-      this.$store.dispatch(
-        {type:'increment',value:3});
-    },
-    getDoneListCount(){
-      return this.$store.state.todos.filter((todo)=> todo.done).length;
-    }
+    ...mapActions({
+         increment:'increment'
+    }),
+    ...mapMutations({
+      'inc':'increment',
+    })
+ 
   }
 }
 </script>
