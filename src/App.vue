@@ -6,7 +6,7 @@
     {{count}}
   </div>
   <div>
-    <button @click.prevent="inc({value:2})">Increment</button>
+    <button @click.prevent="increment({value:2})">Increment</button>
   </div>
   <div>
     <todos-list></todos-list>
@@ -28,7 +28,7 @@ export default {
           count:state => state.counter.count,
      }),
    ...mapGetters({
-       doneListCount:'doneTodosListCount'
+       doneListCount:'todos/doneTodosListCount'
    }),
    
   },
@@ -40,10 +40,10 @@ export default {
  
   methods:{
     ...mapActions({
-         increment:'increment'
+         increment:'counter/increment'
     }),
     ...mapMutations({
-      'inc':'increment',
+      'inc':'counter/increment',
     })
  
   }

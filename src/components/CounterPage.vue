@@ -24,7 +24,7 @@ export default {
    },
    methods:{
        ...mapActions({
-          onIncrement:'actionB'
+          onIncrement:'counter/actionB'
        }),
       
        

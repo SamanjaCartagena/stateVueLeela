@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import {createStore} from 'vuex'
 import App from './App.vue'
 const counterModule ={
+    namespaced:true,
     state(){
        return {
            count:2,
@@ -23,8 +24,7 @@ const counterModule ={
             }, 2000)
 
     },
-    },
-      actionA(context){
+     actionA(context){
             return new Promise((resolve)=>{
                 setTimeout(()=>{
                     context.commit('increment',{value:1});
@@ -38,8 +38,12 @@ const counterModule ={
                 console.log("calling success from actionB")
             })
         }
+    },
+     
+        
 };
 const todosModule ={
+    namespaced:true,
    state(){
        return {
   todos:[
@@ -65,7 +69,12 @@ const todosModule ={
            return getters.doneTodos.length;
         },
    },
-   actions:{},
+   actions:{
+       actionB(){
+           console.log("firing from todos module action B")
+          
+       }
+   },
 
 };
 
